@@ -1,6 +1,6 @@
 [build]
-  publish = "."
-  functions = "netlify/functions"
+  publish = "survival-nfl"
+  functions = "survival-nfl/netlify/functions"
 
 [[headers]]
   for = "/*"
