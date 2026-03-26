@@ -496,7 +496,7 @@ async function fetchNews(teamName){
   const loadEl=document.getElementById('newsLoading');
   const listEl=document.getElementById('newsItems');
   try{
-    const res=await fetch('/.netlify/functions/claude-proxy',{
+    const res=await fetch('/api/claude-proxy',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
