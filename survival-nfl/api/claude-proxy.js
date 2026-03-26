@@ -3,14 +3,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY.trim();
+  const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY.trim();
 
-  // debug temporário
   if (req.headers['x-debug'] === 'true') {
     return res.status(200).json({
       keyExists: !!ANTHROPIC_API_KEY,
-      keyLength: ANTHROPIC_API_KEY ? ANTHROPIC_API_KEY.length : 0,
-      keyStart: ANTHROPIC_API_KEY ? ANTHROPIC_API_KEY.substring(0, 20) : 'undefined'
+      keyLength: ANTHROPIC_API_KEY.length,
+      keyStart: ANTHROPIC_API_KEY.substring(0, 20),
+      keyEnd: ANTHROPIC_API_KEY.substring(ANTHROPIC_API_KEY.length - 5),
+      keyCharCodes: Array.from(ANTHROPIC_API_KEY.substring(0, 5)).map(c => c.charCodeAt(0))
     });
   }
 
