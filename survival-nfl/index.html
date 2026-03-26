@@ -7,11 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --c1:#002244;--c2:#C60C30;--ct:#f0f4f8;
-  --silver:#a8b5c5;--silver-light:#c8d4e0;--silver-bright:#e2e9f0;
-  --white:#f0f4f8;--card-border:rgba(168,181,197,0.13);
-}
+:root{--c1:#002244;--c2:#C60C30;--ct:#f0f4f8;--silver:#a8b5c5;--silver-light:#c8d4e0;--silver-bright:#e2e9f0;--white:#f0f4f8}
 html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden;transition:background .5s ease}
 .bg-base{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 55% at 50% -5%,color-mix(in srgb,var(--c1) 80%,white 20%) 0%,transparent 65%),radial-gradient(ellipse 55% 40% at 85% 100%,color-mix(in srgb,var(--c2) 30%,transparent) 0%,transparent 60%),color-mix(in srgb,var(--c1) 60%,black 40%);transition:background .5s ease}
 .bg-stripes{position:fixed;inset:0;z-index:0;background-image:repeating-linear-gradient(-55deg,transparent 0,transparent 38px,rgba(255,255,255,.025) 38px,rgba(255,255,255,.025) 40px)}
@@ -146,11 +142,7 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 .sb-stat-val.accent{color:var(--c2);transition:color .5s}
 .sb-stat-lbl{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);opacity:.45}
 .site-footer{text-align:center;margin-top:2.5rem;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);opacity:.25}
-@media(max-width:440px){
-  .countdown{gap:.5rem}.kickoff-box{flex-wrap:wrap;gap:.8rem}.season-badge{margin-left:0}
-  .slide-info{padding:1rem}.ctrl-bar{padding:.7rem .9rem}
-  .teams-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
-}
+@media(max-width:440px){.countdown{gap:.5rem}.kickoff-box{flex-wrap:wrap;gap:.8rem}.season-badge{margin-left:0}.slide-info{padding:1rem}.ctrl-bar{padding:.7rem .9rem}.teams-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
 </style>
 </head>
 <body>
@@ -295,7 +287,6 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 
 <script>
 const newsCache = {};
-
 const TEAMS = {
   afcEast:  [{id:'ne',name:'Patriots',c1:'#002244',c2:'#C60C30',ct:'#fff'},{id:'buf',name:'Bills',c1:'#00338D',c2:'#C60C30',ct:'#fff'},{id:'mia',name:'Dolphins',c1:'#008E97',c2:'#FC4C02',ct:'#fff'},{id:'nyj',name:'Jets',c1:'#125740',c2:'#ffffff',ct:'#125740'}],
   afcNorth: [{id:'bal',name:'Ravens',c1:'#241773',c2:'#9E7C0C',ct:'#fff'},{id:'cin',name:'Bengals',c1:'#FB4F14',c2:'#000000',ct:'#fff'},{id:'cle',name:'Browns',c1:'#311D00',c2:'#FF3C00',ct:'#fff'},{id:'pit',name:'Steelers',c1:'#101820',c2:'#FFB612',ct:'#fff'}],
@@ -308,14 +299,11 @@ const TEAMS = {
 };
 
 Object.entries(TEAMS).forEach(([div,teams])=>{
-  const el=document.getElementById(div);
-  if(!el)return;
+  const el=document.getElementById(div);if(!el)return;
   teams.forEach(t=>{
-    const btn=document.createElement('button');
-    btn.className='team-btn';
+    const btn=document.createElement('button');btn.className='team-btn';
     btn.innerHTML=`<span class="team-swatch" style="background:${t.c1};border:2px solid ${t.c2}"></span><span class="team-name">${t.name}</span>`;
-    btn.onclick=()=>selectTeam(t);
-    el.appendChild(btn);
+    btn.onclick=()=>selectTeam(t);el.appendChild(btn);
   });
 });
 
@@ -324,16 +312,14 @@ function openModal(){document.getElementById('teamModal').style.display='flex'}
 function selectTeam(team){
   document.getElementById('teamModal').style.display='none';
   const r=document.documentElement.style;
-  r.setProperty('--c1',team.c1);
-  r.setProperty('--c2',team.c2);
-  r.setProperty('--ct',team.ct);
+  r.setProperty('--c1',team.c1);r.setProperty('--c2',team.c2);r.setProperty('--ct',team.ct);
   document.body.style.background=team.c1;
   document.getElementById('newsBanner').style.display='block';
   document.getElementById('newsTeamName').textContent=team.name.toUpperCase();
-  if(newsCache[team.id]){ renderNews(newsCache[team.id]); return; }
+  if(newsCache[team.id]){renderNews(newsCache[team.id]);return;}
   document.getElementById('newsLoading').style.display='block';
   document.getElementById('newsItems').innerHTML='';
-  fetchNews(team.id, team.name);
+  fetchNews(team.id,team.name);
 }
 
 function renderNews(items){
@@ -350,36 +336,27 @@ function renderNews(items){
   });
 }
 
-async function fetchNews(teamId, teamName){
+async function fetchNews(teamId,teamName){
   const loadEl=document.getElementById('newsLoading');
   const listEl=document.getElementById('newsItems');
   try{
-    // usa AllOrigins como proxy CORS — gratuito e sem restrições
-    const rssUrl=`https://news.google.com/rss/search?q=${encodeURIComponent(teamName+' NFL')}&hl=en-US&gl=US&ceid=US:en`;
-    const proxyUrl=`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
-
-    const res=await fetch(proxyUrl);
-    const data=await res.json();
-
-    // parse XML
+    // chama nossa própria function Vercel como proxy RSS — sem CORS
+    const res=await fetch(`/api/claude-proxy?team=${encodeURIComponent(teamName)}`);
+    const xmlText=await res.text();
     const parser=new DOMParser();
-    const xml=parser.parseFromString(data.contents,'text/xml');
+    const xml=parser.parseFromString(xmlText,'text/xml');
     const items=Array.from(xml.querySelectorAll('item')).slice(0,5);
-
     if(items.length===0) throw new Error('No items');
-
     const parsed=items.map(item=>{
       const title=(item.querySelector('title')?.textContent||'').replace(/ - [^-]{1,40}$/,'').trim();
       const link=item.querySelector('link')?.textContent||'#';
       const pubDate=item.querySelector('pubDate')?.textContent||'';
-      const date=pubDate ? new Date(pubDate).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}) : '';
-      const sourceName=item.querySelector('source')?.textContent||link.replace(/https?:\/\/(www\.)?/,'').split('/')[0];
-      return {title,link,date,source:sourceName};
+      const date=pubDate?new Date(pubDate).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}):'';
+      const source=item.querySelector('source')?.textContent||link.replace(/https?:\/\/(www\.)?/,'').split('/')[0];
+      return {title,link,date,source};
     });
-
     newsCache[teamId]=parsed;
     renderNews(parsed);
-
   }catch(e){
     loadEl.style.display='none';
     const li=document.createElement('li');
