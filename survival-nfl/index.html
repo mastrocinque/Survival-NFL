@@ -48,15 +48,29 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
 .change-team-btn{align-self:flex-end;margin-top:-.4rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);opacity:.4;background:none;border:none;cursor:pointer;padding:.3rem 0;transition:opacity .2s}
 .change-team-btn:hover{opacity:.85}
+
+/* ── HEADER — aumentado 30% ── */
 .header{display:flex;flex-direction:column;align-items:center;gap:.5rem;width:100%}
-.eyebrow{font-weight:300;font-size:.72rem;letter-spacing:.45em;text-transform:uppercase;color:var(--silver);opacity:.7}
+
+/* eyebrow: 0.72rem → 0.94rem */
+.eyebrow{font-weight:300;font-size:.94rem;letter-spacing:.45em;text-transform:uppercase;color:var(--silver);opacity:.7}
+
 .accent-bar{width:48px;height:3px;background:var(--c2);border-radius:2px;margin-bottom:.6rem;transition:background .5s}
-.title-grupo{font-weight:300;font-size:clamp(.65rem,2vw,.8rem);letter-spacing:.5em;text-transform:uppercase;color:var(--silver);opacity:.5;margin-bottom:.15rem}
-.title-survival{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,5vw,2.2rem);letter-spacing:.22em;color:var(--silver)}
-.title-nfl{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,18vw,9rem);line-height:.85;letter-spacing:.05em;color:var(--white);position:relative}
+
+/* "Grupo" label: clamp(.65rem,2vw,.8rem) → clamp(.85rem,2.6vw,1.04rem) */
+.title-grupo{font-weight:300;font-size:clamp(.85rem,2.6vw,1.04rem);letter-spacing:.5em;text-transform:uppercase;color:var(--silver);opacity:.5;margin-bottom:.15rem}
+
+/* "Survival": clamp(1.4rem,5vw,2.2rem) → clamp(1.82rem,6.5vw,2.86rem) */
+.title-survival{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.82rem,6.5vw,2.86rem);letter-spacing:.22em;color:var(--silver)}
+
+/* "NFL": clamp(5rem,18vw,9rem) → clamp(6.5rem,23.4vw,11.7rem) */
+.title-nfl{font-family:'Bebas Neue',sans-serif;font-size:clamp(6.5rem,23.4vw,11.7rem);line-height:.85;letter-spacing:.05em;color:var(--white);position:relative}
 .title-nfl::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:70%;height:3px;background:linear-gradient(90deg,transparent,var(--c2),transparent);transition:background .5s}
-.title-sub{font-weight:300;font-size:clamp(.7rem,2.5vw,.9rem);letter-spacing:.28em;text-transform:uppercase;color:var(--silver);opacity:.55;margin-top:.6rem;text-align:center}
+
+/* subtitle: clamp(.7rem,2.5vw,.9rem) → clamp(.91rem,3.25vw,1.17rem) */
+.title-sub{font-weight:300;font-size:clamp(.91rem,3.25vw,1.17rem);letter-spacing:.28em;text-transform:uppercase;color:var(--silver);opacity:.55;margin-top:.6rem;text-align:center}
 .title-sub strong{color:var(--silver-light);font-weight:600}
+
 .divider{display:flex;align-items:center;gap:.9rem;width:90%}
 .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent)}
 .divider-icon{font-size:1.1rem}
