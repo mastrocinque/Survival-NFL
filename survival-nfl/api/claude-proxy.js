@@ -4,6 +4,12 @@ export default async function handler(req, res) {
   }
 
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+  
+  // debug — mostra se a chave está chegando
+  console.log('API KEY exists:', !!ANTHROPIC_API_KEY);
+  console.log('API KEY length:', ANTHROPIC_API_KEY ? ANTHROPIC_API_KEY.length : 0);
+  console.log('API KEY starts with:', ANTHROPIC_API_KEY ? ANTHROPIC_API_KEY.substring(0, 15) : 'undefined');
+
   if (!ANTHROPIC_API_KEY) {
     return res.status(500).json({ error: 'API key not configured' });
   }
@@ -23,15 +29,13 @@ export default async function handler(req, res) {
     });
 
     const text = await response.text();
-    const status = response.status;
+    console.log('Anthropic status:', response.status);
+    console.log('Anthropic response preview:', text.substring(0, 100));
 
-    // log para debug
-    console.log('Anthropic status:', status);
-    console.log('Anthropic response:', text.substring(0, 200));
-
-    res.status(status).setHeader('Content-Type', 'application/json').send(text);
+    res.status(response.status).setHeader('Content-Type', 'application/json').send(text);
 
   } catch (err) {
-    return res.status(502).json({ error: 'Upstream error', detail: err.message });
+    console.error('Catch error:', err.message);
+    return res.status(502).json({ error: err.message });
   }
 }
