@@ -40,7 +40,7 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 .news-badge{margin-left:auto;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;background:rgba(0,0,0,.25);color:var(--ct);padding:.2rem .55rem;border-radius:2px;opacity:.8}
 .news-body{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);border-top:none;border-radius:0 0 8px 8px;overflow:hidden}
 #newsItems{list-style:none}
-#newsItems li{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:.2rem;transition:background .15s}
+#newsItems li{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:.2rem;transition:background .15s;cursor:pointer}
 #newsItems li:last-child{border-bottom:none}
 #newsItems li:hover{background:rgba(255,255,255,.05)}
 .news-headline{font-weight:600;font-size:.82rem;letter-spacing:.03em;color:var(--silver-bright);line-height:1.35}
@@ -294,6 +294,9 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 </div>
 
 <script>
+// ── CACHE de notícias por sessão ──
+const newsCache = {};
+
 const TEAMS = {
   afcEast:  [{id:'ne',name:'Patriots',c1:'#002244',c2:'#C60C30',ct:'#fff'},{id:'buf',name:'Bills',c1:'#00338D',c2:'#C60C30',ct:'#fff'},{id:'mia',name:'Dolphins',c1:'#008E97',c2:'#FC4C02',ct:'#fff'},{id:'nyj',name:'Jets',c1:'#125740',c2:'#ffffff',ct:'#125740'}],
   afcNorth: [{id:'bal',name:'Ravens',c1:'#241773',c2:'#9E7C0C',ct:'#fff'},{id:'cin',name:'Bengals',c1:'#FB4F14',c2:'#000000',ct:'#fff'},{id:'cle',name:'Browns',c1:'#311D00',c2:'#FF3C00',ct:'#fff'},{id:'pit',name:'Steelers',c1:'#101820',c2:'#FFB612',ct:'#fff'}],
@@ -328,43 +331,60 @@ function selectTeam(team){
   document.body.style.background=team.c1;
   document.getElementById('newsBanner').style.display='block';
   document.getElementById('newsTeamName').textContent=team.name.toUpperCase();
+
+  // usa cache se já buscou esse time
+  if(newsCache[team.id]){
+    renderNews(newsCache[team.id]);
+    return;
+  }
+
   document.getElementById('newsLoading').style.display='block';
   document.getElementById('newsItems').innerHTML='';
-  fetchNews(team.name);
+  fetchNews(team.id, team.name);
 }
 
-async function fetchNews(teamName){
+function renderNews(items){
+  const loadEl=document.getElementById('newsLoading');
+  const listEl=document.getElementById('newsItems');
+  loadEl.style.display='none';
+  listEl.innerHTML='';
+  items.forEach(item=>{
+    const li=document.createElement('li');
+    li.innerHTML=`<span class="news-headline">${item.title}</span><span class="news-meta">${item.source} · ${item.date}</span>`;
+    if(item.link) li.onclick=()=>window.open(item.link,'_blank');
+    listEl.appendChild(li);
+  });
+}
+
+async function fetchNews(teamId, teamName){
   const loadEl=document.getElementById('newsLoading');
   const listEl=document.getElementById('newsItems');
   try{
-    const res=await fetch('/api/claude-proxy',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        tools:[{type:'web_search_20250305',name:'web_search'}],
-        system:'Você é um assistente esportivo. Responda APENAS com JSON válido, sem texto extra, sem markdown, sem backticks.',
-        messages:[{
-          role:'user',
-          content:`Busque as 5 notícias mais recentes sobre o time NFL ${teamName} em 2026. Retorne APENAS este JSON exato sem nenhum outro texto:
-{"items":[{"title":"titulo","source":"veiculo","date":"data"}]}`
-        }]
-      })
-    });
+    // Google News RSS via rss2json (gratuito, sem API key)
+    const query=encodeURIComponent(`${teamName} NFL`);
+    const rssUrl=encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=pt-BR&gl=BR&ceid=BR:pt-419`);
+    const apiUrl=`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}&count=5`;
+
+    const res=await fetch(apiUrl);
     const data=await res.json();
-    const textContent=data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
-    const clean=textContent.replace(/```json|```/g,'').trim();
-    const start=clean.indexOf('{');
-    const end=clean.lastIndexOf('}');
-    const jsonStr=clean.substring(start,end+1);
-    const parsed=JSON.parse(jsonStr);
-    loadEl.style.display='none';
-    parsed.items.forEach(item=>{
-      const li=document.createElement('li');
-      li.innerHTML=`<span class="news-headline">${item.title}</span><span class="news-meta">${item.source} · ${item.date}</span>`;
-      listEl.appendChild(li);
+
+    if(data.status!=='ok' || !data.items || data.items.length===0){
+      throw new Error('No items');
+    }
+
+    const items=data.items.map(item=>{
+      const date=new Date(item.pubDate);
+      const dateStr=date.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
+      // limpa o título removendo " - Fonte" no final
+      const title=item.title.replace(/ - [^-]+$/, '').trim();
+      const source=item.author || new URL(item.link).hostname.replace('www.','');
+      return {title, source, date:dateStr, link:item.link};
     });
+
+    // salva no cache
+    newsCache[teamId]=items;
+    renderNews(items);
+
   }catch(e){
     loadEl.style.display='none';
     const li=document.createElement('li');
@@ -374,6 +394,7 @@ async function fetchNews(teamName){
   }
 }
 
+// COUNTDOWN
 const TARGET=new Date('2026-09-10T00:20:00Z').getTime();
 const SEASON_START=new Date('2026-05-01T00:00:00Z').getTime();
 const els={days:document.getElementById('days'),hours:document.getElementById('hours'),minutes:document.getElementById('minutes'),seconds:document.getElementById('seconds'),fill:document.getElementById('progressFill'),pct:document.getElementById('pct'),expired:document.getElementById('expiredMsg'),cd:document.getElementById('countdown'),uDays:document.getElementById('unit-days'),uHours:document.getElementById('unit-hours'),uMin:document.getElementById('unit-minutes'),uSec:document.getElementById('unit-seconds')};
@@ -391,6 +412,7 @@ function tick(){
 }
 tick();setInterval(tick,1000);
 
+// GALLERY
 const allSlides=Array.from(document.querySelectorAll('.slide'));
 let filtered=[...allSlides],current=0;
 const dotsEl=document.getElementById('dots'),counterEl=document.getElementById('counter');
