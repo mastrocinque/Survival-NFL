@@ -21,8 +21,6 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 .orb-2{width:350px;height:350px;background:color-mix(in srgb,var(--c2) 40%,transparent);bottom:-80px;right:-60px;opacity:.4;animation-delay:-5s}
 @keyframes drift{0%,100%{transform:translate(0,0)}33%{transform:translate(15px,10px)}66%{transform:translate(-10px,20px)}}
 .page{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:2rem 1.5rem 3rem;display:flex;flex-direction:column;align-items:center;gap:2rem}
-
-/* MODAL */
 #teamModal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:1rem}
 .modal-box{background:linear-gradient(160deg,rgba(10,22,40,.99) 0%,rgba(4,9,20,1) 100%);border:1px solid rgba(168,181,197,.15);border-radius:12px;padding:1.8rem 1.5rem;max-width:600px;width:100%;max-height:90dvh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.8)}
 .modal-eyebrow{font-size:.65rem;letter-spacing:.45em;text-transform:uppercase;color:var(--silver);opacity:.55;margin-bottom:.4rem;text-align:center}
@@ -36,8 +34,6 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 .team-btn:hover{background:rgba(255,255,255,.09);border-color:rgba(168,181,197,.25);transform:translateY(-1px)}
 .team-swatch{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .team-name{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--silver-light)}
-
-/* NEWS BANNER */
 #newsBanner{display:none;width:100%}
 .news-header{display:flex;align-items:center;gap:.8rem;padding:.75rem 1rem;border-radius:8px 8px 0 0;background:var(--c2);transition:background .5s}
 .news-team-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;color:var(--ct)}
@@ -46,35 +42,16 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 #newsItems{list-style:none}
 #newsItems li{border-bottom:1px solid rgba(255,255,255,.06)}
 #newsItems li:last-child{border-bottom:none}
-#newsItems li a{
-  display:flex;flex-direction:column;gap:.3rem;
-  padding:.9rem 1rem;
-  text-decoration:none;
-  transition:background .15s;
-}
+#newsItems li a{display:flex;flex-direction:column;gap:.3rem;padding:.9rem 1rem;text-decoration:none;transition:background .15s}
 #newsItems li a:hover{background:rgba(255,255,255,.07)}
-.news-headline{
-  font-weight:600;
-  font-size:1rem;
-  letter-spacing:.02em;
-  color:var(--silver-bright);
-  line-height:1.4;
-}
+.news-headline{font-weight:600;font-size:1rem;letter-spacing:.02em;color:var(--silver-bright);line-height:1.4}
 #newsItems li a:hover .news-headline{color:#fff}
-.news-arrow{
-  font-size:.8rem;
-  color:var(--c2);
-  transition:color .5s;
-  opacity:.8;
-}
 .news-meta{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--silver);opacity:.45}
 .news-loading{padding:1.8rem;text-align:center;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);opacity:.45}
 .news-loading span{animation:blink 1.2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
 .change-team-btn{align-self:flex-end;margin-top:-.4rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);opacity:.4;background:none;border:none;cursor:pointer;padding:.3rem 0;transition:opacity .2s}
 .change-team-btn:hover{opacity:.85}
-
-/* COUNTDOWN */
 .header{display:flex;flex-direction:column;align-items:center;gap:.5rem;width:100%}
 .eyebrow{font-weight:300;font-size:.72rem;letter-spacing:.45em;text-transform:uppercase;color:var(--silver);opacity:.7}
 .accent-bar{width:48px;height:3px;background:var(--c2);border-radius:2px;margin-bottom:.6rem;transition:background .5s}
@@ -118,8 +95,6 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 .pop{animation:pop .28s cubic-bezier(.36,.07,.19,.97)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .page>*{animation:fadeUp .6s ease both}
-
-/* GALLERY */
 .gallery-divider{width:100%;display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.5rem 0}
 .gallery-divider-label{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,4vw,1.8rem);letter-spacing:.15em;color:var(--silver);opacity:.7}
 .gallery-divider-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent)}
@@ -201,7 +176,6 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 </div>
 
 <div class="page">
-
   <div id="newsBanner">
     <div class="news-header">
       <span class="news-team-name" id="newsTeamName">—</span>
@@ -316,7 +290,6 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
       </div>
     </div>
   </div>
-
   <footer class="site-footer">Grupo Survival NFL · Temporada 2025/26 · Boa sorte na temporada 2026!</footer>
 </div>
 
@@ -357,27 +330,22 @@ function selectTeam(team){
   document.body.style.background=team.c1;
   document.getElementById('newsBanner').style.display='block';
   document.getElementById('newsTeamName').textContent=team.name.toUpperCase();
-  if(newsCache[team.id]){
-    renderNews(newsCache[team.id]);
-    return;
-  }
+  if(newsCache[team.id]){ renderNews(newsCache[team.id]); return; }
   document.getElementById('newsLoading').style.display='block';
   document.getElementById('newsItems').innerHTML='';
   fetchNews(team.id, team.name);
 }
 
 function renderNews(items){
-  const loadEl=document.getElementById('newsLoading');
+  document.getElementById('newsLoading').style.display='none';
   const listEl=document.getElementById('newsItems');
-  loadEl.style.display='none';
   listEl.innerHTML='';
   items.forEach(item=>{
     const li=document.createElement('li');
-    li.innerHTML=`
-      <a href="${item.link}" target="_blank" rel="noopener noreferrer">
-        <span class="news-headline">${item.title}</span>
-        <span class="news-meta">${item.source} · ${item.date} &nbsp;↗</span>
-      </a>`;
+    li.innerHTML=`<a href="${item.link}" target="_blank" rel="noopener noreferrer">
+      <span class="news-headline">${item.title}</span>
+      <span class="news-meta">${item.source} · ${item.date} &nbsp;↗</span>
+    </a>`;
     listEl.appendChild(li);
   });
 }
@@ -386,23 +354,32 @@ async function fetchNews(teamId, teamName){
   const loadEl=document.getElementById('newsLoading');
   const listEl=document.getElementById('newsItems');
   try{
-    const query=encodeURIComponent(`"${teamName}" NFL`);
-    const rssUrl=`https://news.google.com/rss/search?q=${query}&hl=en-US&gl=US&ceid=US:en`;
-    const apiUrl=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=5`;
-    const res=await fetch(apiUrl);
+    // usa AllOrigins como proxy CORS — gratuito e sem restrições
+    const rssUrl=`https://news.google.com/rss/search?q=${encodeURIComponent(teamName+' NFL')}&hl=en-US&gl=US&ceid=US:en`;
+    const proxyUrl=`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+
+    const res=await fetch(proxyUrl);
     const data=await res.json();
-    console.log('RSS status:', data.status, '| items:', data.items?.length);
-    if(data.status!=='ok'||!data.items||data.items.length===0) throw new Error('No items');
-    const items=data.items.map(item=>{
-      const date=new Date(item.pubDate);
-      const dateStr=date.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
-      const title=item.title.replace(/ - [^-]{1,40}$/, '').trim();
-      let source='';
-      try{ source=new URL(item.link).hostname.replace('www.',''); }catch(e){ source=item.author||''; }
-      return {title,source,date:dateStr,link:item.link};
+
+    // parse XML
+    const parser=new DOMParser();
+    const xml=parser.parseFromString(data.contents,'text/xml');
+    const items=Array.from(xml.querySelectorAll('item')).slice(0,5);
+
+    if(items.length===0) throw new Error('No items');
+
+    const parsed=items.map(item=>{
+      const title=(item.querySelector('title')?.textContent||'').replace(/ - [^-]{1,40}$/,'').trim();
+      const link=item.querySelector('link')?.textContent||'#';
+      const pubDate=item.querySelector('pubDate')?.textContent||'';
+      const date=pubDate ? new Date(pubDate).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}) : '';
+      const sourceName=item.querySelector('source')?.textContent||link.replace(/https?:\/\/(www\.)?/,'').split('/')[0];
+      return {title,link,date,source:sourceName};
     });
-    newsCache[teamId]=items;
-    renderNews(items);
+
+    newsCache[teamId]=parsed;
+    renderNews(parsed);
+
   }catch(e){
     loadEl.style.display='none';
     const li=document.createElement('li');
