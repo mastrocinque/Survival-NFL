@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grupo Survival NFL – Temporada 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Teko:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--c1:#002244;--c2:#C60C30;--ct:#f0f4f8;--silver:#a8b5c5;--silver-light:#c8d4e0;--silver-bright:#e2e9f0;--white:#f0f4f8}
@@ -38,9 +38,9 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 #newsItems{list-style:none}
 #newsItems li{border-bottom:1px solid rgba(255,255,255,.06)}
 #newsItems li:last-child{border-bottom:none}
-#newsItems li a{display:flex;flex-direction:column;gap:.3rem;padding:.9rem 1rem;text-decoration:none;transition:background .15s}
+#newsItems li a{display:flex;flex-direction:column;gap:.25rem;padding:.9rem 1rem;text-decoration:none;transition:background .15s}
 #newsItems li a:hover{background:rgba(255,255,255,.07)}
-.news-headline{font-weight:600;font-size:1rem;letter-spacing:.02em;color:var(--silver-bright);line-height:1.4}
+.news-headline{font-family:'Teko',sans-serif;font-weight:500;font-size:1.6rem;letter-spacing:.02em;color:var(--silver-bright);line-height:1.2}
 #newsItems li a:hover .news-headline{color:#fff}
 .news-meta{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--silver);opacity:.45}
 .news-loading{padding:1.8rem;text-align:center;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);opacity:.45}
@@ -286,18 +286,17 @@ html,body{background:var(--c1);color:var(--white);font-family:'Barlow Condensed'
 </div>
 
 <script>
-const newsCache = {};
-const TEAMS = {
-  afcEast:  [{id:'ne',name:'Patriots',c1:'#002244',c2:'#C60C30',ct:'#fff'},{id:'buf',name:'Bills',c1:'#00338D',c2:'#C60C30',ct:'#fff'},{id:'mia',name:'Dolphins',c1:'#008E97',c2:'#FC4C02',ct:'#fff'},{id:'nyj',name:'Jets',c1:'#125740',c2:'#ffffff',ct:'#125740'}],
-  afcNorth: [{id:'bal',name:'Ravens',c1:'#241773',c2:'#9E7C0C',ct:'#fff'},{id:'cin',name:'Bengals',c1:'#FB4F14',c2:'#000000',ct:'#fff'},{id:'cle',name:'Browns',c1:'#311D00',c2:'#FF3C00',ct:'#fff'},{id:'pit',name:'Steelers',c1:'#101820',c2:'#FFB612',ct:'#fff'}],
-  afcSouth: [{id:'hou',name:'Texans',c1:'#03202F',c2:'#A71930',ct:'#fff'},{id:'ind',name:'Colts',c1:'#003A70',c2:'#A2AAAD',ct:'#fff'},{id:'jax',name:'Jaguars',c1:'#006778',c2:'#9F792C',ct:'#fff'},{id:'ten',name:'Titans',c1:'#0C2340',c2:'#4B92DB',ct:'#fff'}],
-  afcWest:  [{id:'den',name:'Broncos',c1:'#002244',c2:'#FB4F14',ct:'#fff'},{id:'kc',name:'Chiefs',c1:'#E31837',c2:'#FFB81C',ct:'#fff'},{id:'lv',name:'Raiders',c1:'#000000',c2:'#A5ACAF',ct:'#fff'},{id:'lac',name:'Chargers',c1:'#0080C6',c2:'#FFC20E',ct:'#fff'}],
-  nfcEast:  [{id:'dal',name:'Cowboys',c1:'#003594',c2:'#869397',ct:'#fff'},{id:'nyg',name:'Giants',c1:'#0B2265',c2:'#A71930',ct:'#fff'},{id:'phi',name:'Eagles',c1:'#004C54',c2:'#A5ACAF',ct:'#fff'},{id:'was',name:'Commanders',c1:'#5A1414',c2:'#FFB612',ct:'#fff'}],
-  nfcNorth: [{id:'chi',name:'Bears',c1:'#0B162A',c2:'#C83803',ct:'#fff'},{id:'det',name:'Lions',c1:'#0076B6',c2:'#B0B7BC',ct:'#fff'},{id:'gb',name:'Packers',c1:'#203731',c2:'#FFB612',ct:'#fff'},{id:'min',name:'Vikings',c1:'#4F2683',c2:'#FFC62F',ct:'#fff'}],
-  nfcSouth: [{id:'atl',name:'Falcons',c1:'#A71930',c2:'#000000',ct:'#fff'},{id:'car',name:'Panthers',c1:'#0085CA',c2:'#101820',ct:'#fff'},{id:'no',name:'Saints',c1:'#101820',c2:'#D3BC8D',ct:'#fff'},{id:'tb',name:'Buccaneers',c1:'#D50A0A',c2:'#FF7900',ct:'#fff'}],
-  nfcWest:  [{id:'ari',name:'Cardinals',c1:'#97233F',c2:'#000000',ct:'#fff'},{id:'lar',name:'Rams',c1:'#003594',c2:'#FFA300',ct:'#fff'},{id:'sf',name:'49ers',c1:'#AA0000',c2:'#B3995D',ct:'#fff'},{id:'sea',name:'Seahawks',c1:'#002244',c2:'#69BE28',ct:'#fff'}],
+const newsCache={};
+const TEAMS={
+  afcEast:[{id:'ne',name:'Patriots',c1:'#002244',c2:'#C60C30',ct:'#fff'},{id:'buf',name:'Bills',c1:'#00338D',c2:'#C60C30',ct:'#fff'},{id:'mia',name:'Dolphins',c1:'#008E97',c2:'#FC4C02',ct:'#fff'},{id:'nyj',name:'Jets',c1:'#125740',c2:'#ffffff',ct:'#125740'}],
+  afcNorth:[{id:'bal',name:'Ravens',c1:'#241773',c2:'#9E7C0C',ct:'#fff'},{id:'cin',name:'Bengals',c1:'#FB4F14',c2:'#000000',ct:'#fff'},{id:'cle',name:'Browns',c1:'#311D00',c2:'#FF3C00',ct:'#fff'},{id:'pit',name:'Steelers',c1:'#101820',c2:'#FFB612',ct:'#fff'}],
+  afcSouth:[{id:'hou',name:'Texans',c1:'#03202F',c2:'#A71930',ct:'#fff'},{id:'ind',name:'Colts',c1:'#003A70',c2:'#A2AAAD',ct:'#fff'},{id:'jax',name:'Jaguars',c1:'#006778',c2:'#9F792C',ct:'#fff'},{id:'ten',name:'Titans',c1:'#0C2340',c2:'#4B92DB',ct:'#fff'}],
+  afcWest:[{id:'den',name:'Broncos',c1:'#002244',c2:'#FB4F14',ct:'#fff'},{id:'kc',name:'Chiefs',c1:'#E31837',c2:'#FFB81C',ct:'#fff'},{id:'lv',name:'Raiders',c1:'#000000',c2:'#A5ACAF',ct:'#fff'},{id:'lac',name:'Chargers',c1:'#0080C6',c2:'#FFC20E',ct:'#fff'}],
+  nfcEast:[{id:'dal',name:'Cowboys',c1:'#003594',c2:'#869397',ct:'#fff'},{id:'nyg',name:'Giants',c1:'#0B2265',c2:'#A71930',ct:'#fff'},{id:'phi',name:'Eagles',c1:'#004C54',c2:'#A5ACAF',ct:'#fff'},{id:'was',name:'Commanders',c1:'#5A1414',c2:'#FFB612',ct:'#fff'}],
+  nfcNorth:[{id:'chi',name:'Bears',c1:'#0B162A',c2:'#C83803',ct:'#fff'},{id:'det',name:'Lions',c1:'#0076B6',c2:'#B0B7BC',ct:'#fff'},{id:'gb',name:'Packers',c1:'#203731',c2:'#FFB612',ct:'#fff'},{id:'min',name:'Vikings',c1:'#4F2683',c2:'#FFC62F',ct:'#fff'}],
+  nfcSouth:[{id:'atl',name:'Falcons',c1:'#A71930',c2:'#000000',ct:'#fff'},{id:'car',name:'Panthers',c1:'#0085CA',c2:'#101820',ct:'#fff'},{id:'no',name:'Saints',c1:'#101820',c2:'#D3BC8D',ct:'#fff'},{id:'tb',name:'Buccaneers',c1:'#D50A0A',c2:'#FF7900',ct:'#fff'}],
+  nfcWest:[{id:'ari',name:'Cardinals',c1:'#97233F',c2:'#000000',ct:'#fff'},{id:'lar',name:'Rams',c1:'#003594',c2:'#FFA300',ct:'#fff'},{id:'sf',name:'49ers',c1:'#AA0000',c2:'#B3995D',ct:'#fff'},{id:'sea',name:'Seahawks',c1:'#002244',c2:'#69BE28',ct:'#fff'}],
 };
-
 Object.entries(TEAMS).forEach(([div,teams])=>{
   const el=document.getElementById(div);if(!el)return;
   teams.forEach(t=>{
@@ -306,9 +305,7 @@ Object.entries(TEAMS).forEach(([div,teams])=>{
     btn.onclick=()=>selectTeam(t);el.appendChild(btn);
   });
 });
-
 function openModal(){document.getElementById('teamModal').style.display='flex'}
-
 function selectTeam(team){
   document.getElementById('teamModal').style.display='none';
   const r=document.documentElement.style;
@@ -321,11 +318,9 @@ function selectTeam(team){
   document.getElementById('newsItems').innerHTML='';
   fetchNews(team.id,team.name);
 }
-
 function renderNews(items){
   document.getElementById('newsLoading').style.display='none';
-  const listEl=document.getElementById('newsItems');
-  listEl.innerHTML='';
+  const listEl=document.getElementById('newsItems');listEl.innerHTML='';
   items.forEach(item=>{
     const li=document.createElement('li');
     li.innerHTML=`<a href="${item.link}" target="_blank" rel="noopener noreferrer">
@@ -335,12 +330,10 @@ function renderNews(items){
     listEl.appendChild(li);
   });
 }
-
 async function fetchNews(teamId,teamName){
   const loadEl=document.getElementById('newsLoading');
   const listEl=document.getElementById('newsItems');
   try{
-    // chama nossa própria function Vercel como proxy RSS — sem CORS
     const res=await fetch(`/api/claude-proxy?team=${encodeURIComponent(teamName)}`);
     const xmlText=await res.text();
     const parser=new DOMParser();
@@ -365,7 +358,6 @@ async function fetchNews(teamId,teamName){
     console.error('fetchNews error:',e);
   }
 }
-
 const TARGET=new Date('2026-09-10T00:20:00Z').getTime();
 const SEASON_START=new Date('2026-05-01T00:00:00Z').getTime();
 const els={days:document.getElementById('days'),hours:document.getElementById('hours'),minutes:document.getElementById('minutes'),seconds:document.getElementById('seconds'),fill:document.getElementById('progressFill'),pct:document.getElementById('pct'),expired:document.getElementById('expiredMsg'),cd:document.getElementById('countdown'),uDays:document.getElementById('unit-days'),uHours:document.getElementById('unit-hours'),uMin:document.getElementById('unit-minutes'),uSec:document.getElementById('unit-seconds')};
@@ -382,7 +374,6 @@ function tick(){
   flashEl(els.seconds,els.uSec,pad(Math.floor(diff%60000/1000)));
 }
 tick();setInterval(tick,1000);
-
 const allSlides=Array.from(document.querySelectorAll('.slide'));
 let filtered=[...allSlides],current=0;
 const dotsEl=document.getElementById('dots'),counterEl=document.getElementById('counter');
